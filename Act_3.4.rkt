@@ -1,8 +1,15 @@
 #lang racket
 
 
+
+;(define (recorre p1 p2)
+ ; (if (eof-object? (peek-char p1))
+  ;    '()
+   ;   (append (list(coincide (read p1) p1 p2)) (recorre-2 p1)))
+ ; null)
+
 ;Función principal que llama a las demás funciones, despliega las etiquetas iniciales y finales
-(define (gramatica file1 file2)
+(define (compila file1 file2)
   (define p1 (open-input-file file1))
   (define p2 (open-output-file file2))
   (display "<!DOCTYPE html> " p2)
@@ -11,6 +18,9 @@
   (newline p2)
   (display "<body>" p2)
   (newline p2)
+  (display "<span style='color:red'>Texto</span>" p2)
+  (newline p2)
+  ;(recorre p1 p2)
   (display "</body>" p2)
   (newline p2)
   (display "</html>" p2)
