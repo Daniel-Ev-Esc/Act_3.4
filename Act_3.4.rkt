@@ -1,9 +1,9 @@
 #lang racket
 
 (define (libreria atomo p2)
-  (display "<span style='color:yellow'>" p2)
+  (display "<span style='color:yellow'> &lt" p2)
   (display (elimina atomo) p2)
-  (display "</span>" p2))
+  (display "&gt </span>" p2))
 
 (define (elimina atomo) 
   (substring atomo 1 (-(string-length atomo)1))) 
