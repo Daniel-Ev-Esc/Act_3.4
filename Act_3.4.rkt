@@ -2,14 +2,16 @@
 
 (define (libreria atomo p2)
   (display "<span style='color:yellow'>" p2)
-  (display atomo p2)
+  (display (elimina atomo) p2)
   (display "</span>" p2))
+
+(define (elimina atomo) 
+  (substring atomo 1 (-(string-length atomo)1))) 
 
 (define (coincide atomo p1 p2)
   (if (regexp-match-exact? #rx"<(.*)>" atomo)
       (libreria atomo p2)
       null))
-
 
 ;Función que recorre el archivo
 (define (recorre p1 p2)
