@@ -1,25 +1,43 @@
 #lang racket
 
-;Función de color en html en librerias
+;Función de color en html de librerias
 (define (libreria atomo p2)
-  (display "<span style='color:yellow'>" p2)
+  (display "<span style='color:orange'>&lt" p2)
   (display (elimina atomo) p2)
-  (display "</span>" p2))
+  (display "&gt </span><br>" p2))
 
 (define (elimina atomo) 
   (substring atomo 1 (-(string-length atomo)1))) 
 
-;Función de color en html en ciclos
+;Función de color en html de ciclos
 (define (ciclo atomo p2)
   (display "<span style='color:purple'>" p2)
   (display atomo p2)
-  (display "</span>" p2))
+  (display "</span>&nbsp;" p2))
 
-;Función de color en html en variables
+;Función de color en html de variables
 (define (variables atomo p2)
   (display "<span style='color:pink'>" p2)
   (display atomo p2)
-  (display "</span>" p2))
+  (display "</span>&nbsp;" p2))
+
+;Función de color en html de operadores
+(define (operadores atomo p2)
+  (display "<span style='color:blue'>" p2)
+  (display atomo p2)
+  (display "</span>&nbsp;" p2))
+
+;Función de salto de línea en html
+(define (puntoComa atomo p2)
+  (display "<span>" p2)
+  (display atomo p2)
+  (display "</span><br>" p2))
+
+;Función de código restante en html 
+(define (restante atomo p2)
+  (display "<span>" p2)
+  (display atomo p2)
+  (display "</span>&nbsp;" p2))
   
 ;Función que identifica los elementos
 (define (coincide atomo p1 p2)
@@ -27,9 +45,17 @@
       (libreria atomo p2)
       (if (regexp-match-exact? #rx"for|while" atomo)
           (ciclo atomo p2)
-          (if (regexp-match #rx"int|bool|float|string" atomo)
+          (if (regexp-match-exact? #rx"int|bool|float|string" atomo)
               (variables atomo p2)
-              null))))
+              (if (regexp-match #rx"-|/|%|&|=|<|>|!" atomo)
+                  (operadores atomo p2)
+                  (if (equal? atomo "+")
+                      (operadores atomo p2)
+                      (if (equal? atomo "*")
+                          (operadores atomo p2)
+                          (if (regexp-match-exact? #rx";" atomo)
+                              (puntoComa atomo p2)
+                              (restante atomo p2)))))))))
 
 ;Función que recorre el archivo
 (define (recorre p1 p2)
@@ -47,7 +73,7 @@
   (newline p2)
   (display "<body>" p2)
   (newline p2)
-  (display "<span style='color:red'>Texto</span>" p2)
+  ;(display "<span style='color:red'>Texto</span>" p2)
   (newline p2)
   (recorre p1 p2)
   (display "</body>" p2)
