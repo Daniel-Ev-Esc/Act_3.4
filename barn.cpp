@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 
 using namespace std;
 
@@ -10,13 +10,13 @@ int main(){
 
     maxC = n;
 
-    while (n > 0){
+    while ( n > 0 ) {
         d++;
 
-        if((n+m) >= maxC){
+        if( ( n + m ) >= maxC ) {
             n = maxC;
         }
-        else{
+        else {
             n += m;
         }
 
