@@ -41,9 +41,9 @@
 
 ;Función que despliega comentarios
 (define (comentario atomo p1 p2)
-  (if (or (equal? (peek-char p1) #\newline) (eof-object? (peek-char p1)))
-      (display "</span>&nbsp;" p2)
-      (display "<span style='color:green'>" p2)))
+  (display "<span style='color:green'>" p2)
+  (display "</span>&nbsp;" p2)
+  )
 
 ;Función que identifica los elementos
 (define (coincide atomo p1 p2)
@@ -53,16 +53,16 @@
           (ciclo atomo p2)
           (if (regexp-match-exact? #rx"int|bool|float|string" atomo)
               (variables atomo p2)
-              (if (regexp-match #rx"-|/|%|&|=|<|>|!" atomo)
-                  (operadores atomo p2)
+              (if (regexp-match-exact? #rx"//.*" atomo)
+                  (comentario atomo p1 p2)
                   (if (equal? atomo "+")
                       (operadores atomo p2)
                       (if (equal? atomo "*")
                           (operadores atomo p2)
                           (if (regexp-match-exact? #rx";" atomo)
                               (puntoComa atomo p2)
-                              (if (regexp-match-exact? #rx"//.*" atomo)
-                                  (comentario atomo p1 p2)
+                              (if (regexp-match #rx"-|/|%|&|=|<|>|!" atomo)
+                                  (operadores atomo p2)
                                   (restante atomo p2))))))))))
 
 ;Funicón que revisa si es un symbolo o numero.
