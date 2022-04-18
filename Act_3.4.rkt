@@ -72,13 +72,19 @@
       (symbol->string atomo)
       (number->string atomo)))
 
+(define (libreria_2 p1 p2)
+  (display "<span style='color:white'> #include </span>&nbsp <span style='color:orange'>&lt" p2)
+  (read-char p1)
+  (read p1)
+  (display (elimina (symbol->string (read p1))) p2)
+  (display "&gt </span><br>" p2))
 
 ;Función que recorre el archivo
 (define (recorre p1 p2)
   (if (eof-object? (peek-char p1))
       '()
       (if (equal? (peek-char p1) #\#)
-          (display "hola")
+          (append (list(libreria_2 p1 p2) (recorre p1 p2)))
           (append (list(coincide (is-symbol (read p1)) p1 p2)) (recorre p1 p2)))))
 
 ;Función principal que llama a las demás funciones, despliega las etiquetas iniciales y finales
