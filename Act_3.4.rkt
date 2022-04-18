@@ -57,11 +57,19 @@
                               (puntoComa atomo p2)
                               (restante atomo p2)))))))))
 
+;Funicón que revisa si es un symbolo o numero.
+;Falta agregar la parte de comentarios? y list?
+(define (is-symbol atomo)
+  (if (symbol? atomo)
+      (symbol->string atomo)
+      (number->string atomo)))
+
+
 ;Función que recorre el archivo
 (define (recorre p1 p2)
   (if (eof-object? (peek-char p1))
       '()
-      (append (list(coincide (symbol->string (read p1)) p1 p2)) (recorre p1 p2))))
+      (append (list(coincide (is-symbol (read p1)) p1 p2)) (recorre p1 p2))))
 
 ;Función principal que llama a las demás funciones, despliega las etiquetas iniciales y finales
 (define (compila file1 file2)
