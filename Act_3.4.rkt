@@ -77,7 +77,9 @@
 (define (recorre p1 p2)
   (if (eof-object? (peek-char p1))
       '()
-      (append (list(coincide (is-symbol (read p1)) p1 p2)) (recorre p1 p2))))
+      (if (equal? (peek-char p1) #\#)
+          (display "hola")
+          (append (list(coincide (is-symbol (read p1)) p1 p2)) (recorre p1 p2)))))
 
 ;Función principal que llama a las demás funciones, despliega las etiquetas iniciales y finales
 (define (compila file1 file2)
