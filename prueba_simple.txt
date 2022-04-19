@@ -1,3 +1,5 @@
-<iostream>
+#include
+<iostream> //esto es un comentario
+int a = 1;
+while
 //esto es un comentario
-a
