@@ -1,5 +1,17 @@
 #lang racket
 
+#|
+Daniel Evaristo Escalera Bonilla A00831289
+Carmina López Palacios A00830265
+Alexa Geraldine Torres Charles A01568178
+21/04/2022
+
+El programa se ejecuta con el siguiente comando:
+(compila "barn.cpp" "salida.html")
+
+Resaltador de sintaxis para el lenguaje C++
+|#
+
 ;Función de color en html de ciclos
 (define (ciclo atomo p2)
   (display "<span style='color:purple'>" p2)
@@ -36,11 +48,18 @@
   (display "</span><br>" p2)
   (newline p2))
 
+;Función de palabras reservadas en html 
+(define (reservadas atomo p2)
+  (display "<span style='color:#D9DD92'>" p2)
+  (display atomo p2)
+  (display "</span>" p2)
+  (newline p2))
+
 ;Función que identifica los elementos
 (define (coincide atomo p1 p2)
   (if (null? atomo)
       null
-      (if (regexp-match-exact? #rx"for|while" atomo)
+      (if (regexp-match-exact? #rx"if|else|while" atomo)
           (ciclo atomo p2) 
           (if (regexp-match-exact? #rx"int|bool|float|string" atomo)
               (variables atomo p2)
@@ -52,7 +71,9 @@
                           (operadores atomo p2)
                           (if (regexp-match #rx"-|/|%|&|=|<|>|!" atomo)
                               (operadores atomo p2)
-                              (restante atomo p2)))))))))
+                              (if (regexp-match #rx"break|return" atomo)
+                                  (reservadas atomo p2)
+                                  (restante atomo p2))))))))))
 
 ;Funciones auxiliares para desplegar paréntesis
 (define (abrir-par p2)
@@ -61,7 +82,7 @@
   null)
 
 (define (cerrar-par p2)
-  (display "<span style='color:white'>)</span><br>" p2)
+  (display "<span style='color:white'>)</span>" p2)
   (newline p2)
   null)
 
@@ -73,15 +94,17 @@
       (append (list(coincide (is-symbol (car atomo) p1 p2) p1 p2)) (despliega-lista (cdr atomo) p1 p2)))
   null)
 
-(define (despliega-corchete-2 atomo p1 p2)
-  (if (null? atomo)
-      (display "<span style='color:white'>}</span><br>" p2)
-      (append (list(coincide (is-symbol (car atomo) p1 p2) p1 p2)) (despliega-corchete-2 (cdr atomo) p1 p2))))
-
-(define (despliega-corchete-1 atomo p1 p2)
-  (display "<span style='color:white'>{</span>" p2)
+(define (despliega-corchete-2 p1 p2)
+  (display "<span style='color:white'>}</span><br>" p2)
   (newline p2)
-  (append (list (despliega-corchete-2 atomo p1 p2)) (recorre p1 p2)))
+  (read-char p1)
+  null)
+
+(define (despliega-corchete-1 p1 p2)
+  (display "<span style='color:white'>{</span><br>" p2)
+  (newline p2)
+  (read-char p1)
+  null)
 
 ;Funicón que revisa si es un symbolo o numero.
 ;Falta agregar la parte de list?
@@ -94,7 +117,7 @@
 
 ;Función que despliega librerías
 (define (libreria p1 p2)
-  (display "<span style='color:white'> #include </span> <span style='color:orange'>&lt" p2)
+  (display "<span style='color:#D9DD92'> #include </span> <span style='color:orange'>&lt" p2)
   (read-char p1)
   (read p1)
   (display (elimina (symbol->string (read p1))) p2)
@@ -119,8 +142,10 @@
           (if (equal? (peek-char p1) #\;)
               (append (list (end-of-code p1 p2) (recorre p1 p2)))
               (if (equal? (peek-char p1) #\{)
-                  (append (list (despliega-corchete-1 (read p1) p1 p2)) (recorre p1 p2))
-                  (append (list(coincide (is-symbol (read p1) p1 p2) p1 p2)) (recorre p1 p2)))))))
+                  (append (list (despliega-corchete-1 p1 p2) (recorre p1 p2)))
+                  (if (equal? (peek-char p1) #\})
+                      (append (list (despliega-corchete-2 p1 p2) (recorre p1 p2)))
+                      (append (list(coincide (is-symbol (read p1) p1 p2) p1 p2)) (recorre p1 p2))))))))
 
 ;Función principal que llama a las demás funciones, despliega las etiquetas iniciales y finales
 (define (compila file1 file2)
@@ -130,8 +155,7 @@
   (newline p2)
   (display "<html>" p2)
   (newline p2)
-  (display "<body style='background-color:black;'>
-</body>" p2)
+  (display "<body style='background-color:black;'>" p2)
   (newline p2)
   ;(display "<span style='color:red'>Texto</span>" p2)
   (newline p2)

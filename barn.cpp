@@ -13,18 +13,18 @@ int main(){
 
     maxC = n;
 
-    while ( n > 0 ) {
+    while ( n > 0 ){
         d++;
 
-        if( ( n + m ) >= maxC ) {
-            n = maxC;
-        }
-        else {
-            n += m;
-        }
+        if( ( n + m ) >= maxC ){
+            n = maxC;}
+        
+        else{
+            n += m;}
+        
 
-        n -= d;
-    }
+        n -= d;}
+    
     
     cout << d;
-}
+    return 0;}
