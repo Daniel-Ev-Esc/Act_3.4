@@ -1,5 +1,4 @@
-#include
-<iostream> //esto es un comentario
+#include <iostream> //esto es un comentario
 int a = 1;
-while
+if( ( n + m ) >= maxC )
 //esto es un comentario
