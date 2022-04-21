@@ -87,6 +87,21 @@
   (read-char p1)
   (display "</span><br>" p2))
 
+
+
+; IS-LIST
+
+(define (is-list-2 atomo p1 p2)
+  (if (null? atomo)
+      (display ")" p2)
+      (append (list (coincide (is-symbol (car atomo)) p1 p2)) (is-list-2 (cdr atomo) p1 p2))))
+
+
+(define (is-list atomo p1 p2)
+  (display "(" p2)
+  (append (list (is-list-2 atomo p1 p2)) (recorre p1 p2)))
+
+
 ;Función que recorre el archivo
 (define (recorre p1 p2)
   (if (eof-object? (peek-char p1))
@@ -95,7 +110,9 @@
           (append (list(libreria_2 p1 p2) (recorre p1 p2)))
           (if (equal? (peek-char p1) #\;)
               (append (list (end-of-code p1 p2) (recorre p1 p2)))
-              (append (list(coincide (is-symbol (read p1)) p1 p2)) (recorre p1 p2))))))
+              (if (equal? (peek-char p1) #\()
+                  (append (list (is-list (read p1) p1 p2)) (recorre p1 p2))
+                  (append (list(coincide (is-symbol (read p1)) p1 p2)) (recorre p1 p2)))))))
 
 ;Función principal que llama a las demás funciones, despliega las etiquetas iniciales y finales
 (define (compila file1 file2)
