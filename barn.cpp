@@ -3,7 +3,10 @@
 using namespace std;
 
 int main(){
-    long long int n, m, maxC;
+    long long int n;
+    int m;
+    int maxC;
+    
     int  d = 0;
     
     cin >> n >> m;

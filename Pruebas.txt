@@ -1,0 +1,2 @@
+(compila "prueba_simple.txt" "prueba.html")
+(compila "barn.cpp" "salida.html")
