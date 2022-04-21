@@ -41,7 +41,7 @@
   (if (null? atomo)
       null
       (if (regexp-match-exact? #rx"for|while" atomo)
-          (ciclo atomo p2)
+          (ciclo atomo p2) 
           (if (regexp-match-exact? #rx"int|bool|float|string" atomo)
               (variables atomo p2)
               (if (regexp-match-exact? #rx"//.*" atomo)
@@ -119,7 +119,7 @@
           (if (equal? (peek-char p1) #\;)
               (append (list (end-of-code p1 p2) (recorre p1 p2)))
               (if (equal? (peek-char p1) #\{)
-                  (append (list (despliega-corchete-1 (read p1) p1 p2)) recorre p1 p2)
+                  (append (list (despliega-corchete-1 (read p1) p1 p2)) (recorre p1 p2))
                   (append (list(coincide (is-symbol (read p1) p1 p2) p1 p2)) (recorre p1 p2)))))))
 
 ;Función principal que llama a las demás funciones, despliega las etiquetas iniciales y finales
