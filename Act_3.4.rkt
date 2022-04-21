@@ -10,8 +10,14 @@ El programa se ejecuta con el siguiente comando:
 (compila "barn.cpp" "salida.html")
 
 Resaltador de sintaxis para el lenguaje C++
+
+NOTAS:
+1. No dar espacios entre { } y no dar saltos de linea al poner }.
+2. En general, mantener los espacios como están.
+
 |#
 
+;COMPLEJIDAD: O(1)
 ;Función de color en html de ciclos
 (define (ciclo atomo p2)
   (display "<span style='color:purple'>" p2)
@@ -19,6 +25,8 @@ Resaltador de sintaxis para el lenguaje C++
   (display "</span>" p2)
   (newline p2))
 
+
+;COMPLEJIDAD: O(1)
 ;Función de color en html de variables
 (define (variables atomo p2)
   (display "<span style='color:pink'>" p2)
@@ -26,6 +34,7 @@ Resaltador de sintaxis para el lenguaje C++
   (display "</span>" p2)
   (newline p2))
 
+;COMPLEJIDAD: O(1)
 ;Función de color en html de operadores
 (define (operadores atomo p2)
   (display "<span style='color:blue'>" p2)
@@ -33,6 +42,7 @@ Resaltador de sintaxis para el lenguaje C++
   (display "</span>" p2)
   (newline p2))
 
+;COMPLEJIDAD: O(1)
 ;Función de código restante en html 
 (define (restante atomo p2)
   (display "<span style='color:cyan'>" p2)
@@ -40,6 +50,7 @@ Resaltador de sintaxis para el lenguaje C++
   (display "</span>" p2)
   (newline p2))
 
+;COMPLEJIDAD: O(1)
 ;Función que despliega comentarios
 (define (comentario atomo p1 p2)
   (display "<span style='color:green'>" p2)
@@ -48,6 +59,7 @@ Resaltador de sintaxis para el lenguaje C++
   (display "</span><br>" p2)
   (newline p2))
 
+;COMPLEJIDAD: O(1)
 ;Función de palabras reservadas en html 
 (define (reservadas atomo p2)
   (display "<span style='color:#D9DD92'>" p2)
@@ -55,6 +67,8 @@ Resaltador de sintaxis para el lenguaje C++
   (display "</span>" p2)
   (newline p2))
 
+
+;COMPLEJIDAD: O(1)
 ;Función que identifica los elementos
 (define (coincide atomo p1 p2)
   (if (null? atomo)
@@ -75,18 +89,21 @@ Resaltador de sintaxis para el lenguaje C++
                                   (reservadas atomo p2)
                                   (restante atomo p2))))))))))
 
+;COMPLEJIDAD: O(1)
 ;Funciones auxiliares para desplegar paréntesis
 (define (abrir-par p2)
   (display "<span style='color:white'>(</span>" p2)
   (newline p2)
   null)
 
+;COMPLEJIDAD: O(1)
 (define (cerrar-par p2)
   (display "<span style='color:white'>)</span>" p2)
   (newline p2)
   null)
 
 
+;COMPLEJIDAD: O(N)
 ;Función que despliega los elementos de una lista
 (define (despliega-lista atomo p1 p2)
   (if (null? atomo)
@@ -94,18 +111,23 @@ Resaltador de sintaxis para el lenguaje C++
       (append (list(coincide (is-symbol (car atomo) p1 p2) p1 p2)) (despliega-lista (cdr atomo) p1 p2)))
   null)
 
+
+;COMPLEJIDAD: O(1)
 (define (despliega-corchete-2 p1 p2)
   (display "<span style='color:white'>}</span><br>" p2)
   (newline p2)
   (read-char p1)
   null)
 
+;COMPLEJIDAD: O(1)
 (define (despliega-corchete-1 p1 p2)
   (display "<span style='color:white'>{</span><br>" p2)
   (newline p2)
   (read-char p1)
   null)
 
+
+;COMPLEJIDAD: O(N)
 ;Funicón que revisa si es un symbolo o numero.
 ;Falta agregar la parte de list?
 (define (is-symbol atomo p1 p2)
@@ -115,6 +137,7 @@ Resaltador de sintaxis para el lenguaje C++
           (number->string atomo)
           (append (abrir-par p2) (despliega-lista atomo p1 p2)))))
 
+;COMPLEJIDAD: O(1)
 ;Función que despliega librerías
 (define (libreria p1 p2)
   (display "<span style='color:#D9DD92'> #include </span> <span style='color:orange'>&lt" p2)
@@ -124,15 +147,19 @@ Resaltador de sintaxis para el lenguaje C++
   (display "&gt </span><br>" p2)
   (newline p2))
 
+
+;COMPLEJIDAD: O(1)
 (define (elimina atomo) 
   (substring atomo 1 (-(string-length atomo)1))) 
 
-
+;COMPLEJIDAD: O(1)
 (define (end-of-code p1 p2)
   (display "<span style='color:white'>; </span>&nbsp" p2)
   (read-char p1)
   (display "</span><br>" p2))
 
+
+;COMPLEJIDAD: O(N)
 ;Función que recorre el archivo
 (define (recorre p1 p2)
   (if (eof-object? (peek-char p1))
@@ -147,6 +174,7 @@ Resaltador de sintaxis para el lenguaje C++
                       (append (list (despliega-corchete-2 p1 p2) (recorre p1 p2)))
                       (append (list(coincide (is-symbol (read p1) p1 p2) p1 p2)) (recorre p1 p2))))))))
 
+;COMPLEJIDAD: O(N)
 ;Función principal que llama a las demás funciones, despliega las etiquetas iniciales y finales
 (define (compila file1 file2)
   (define p1 (open-input-file file1))
