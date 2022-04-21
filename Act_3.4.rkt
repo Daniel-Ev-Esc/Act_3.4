@@ -21,13 +21,6 @@
   (display "</span>" p2)
   (newline p2))
 
-;Función de salto de línea en html
-(define (puntoComa atomo p2)
-  (display "<span>" p2)
-  (display atomo p2)
-  (display "</span><br>" p2)
-  (newline p2))
-
 ;Función de código restante en html 
 (define (restante atomo p2)
   (display "<span style='color:cyan'>" p2)
@@ -57,11 +50,10 @@
                       (operadores atomo p2)
                       (if (equal? atomo "*")
                           (operadores atomo p2)
-                          (if (regexp-match-exact? #rx";" atomo)
-                              (puntoComa atomo p2)
-                              (if (regexp-match #rx"-|/|%|&|=|<|>|!" atomo)
-                                  (operadores atomo p2)
-                                  (restante atomo p2))))))))))
+                          (if (regexp-match #rx"-|/|%|&|=|<|>|!" atomo)
+                              (operadores atomo p2)
+                              (restante atomo p2)))))))))
+
 ;Funciones auxiliares para desplegar paréntesis
 (define (abrir-par p2)
   (display "<span style='color:white'>(</span>" p2)
@@ -80,6 +72,16 @@
       (cerrar-par p2)
       (append (list(coincide (is-symbol (car atomo) p1 p2) p1 p2)) (despliega-lista (cdr atomo) p1 p2)))
   null)
+
+(define (despliega-corchete-2 atomo p1 p2)
+  (if (null? atomo)
+      (display "<span style='color:white'>}</span><br>" p2)
+      (append (list(coincide (is-symbol (car atomo) p1 p2) p1 p2)) (despliega-corchete-2 (cdr atomo) p1 p2))))
+
+(define (despliega-corchete-1 atomo p1 p2)
+  (display "<span style='color:white'>{</span>" p2)
+  (newline p2)
+  (append (list (despliega-corchete-2 atomo p1 p2)) (recorre p1 p2)))
 
 ;Funicón que revisa si es un symbolo o numero.
 ;Falta agregar la parte de list?
@@ -116,7 +118,9 @@
           (append (list(libreria p1 p2) (recorre p1 p2)))
           (if (equal? (peek-char p1) #\;)
               (append (list (end-of-code p1 p2) (recorre p1 p2)))
-              (append (list(coincide (is-symbol (read p1) p1 p2) p1 p2)) (recorre p1 p2))))))
+              (if (equal? (peek-char p1) #\{)
+                  (append (list (despliega-corchete-1 (read p1) p1 p2)) recorre p1 p2)
+                  (append (list(coincide (is-symbol (read p1) p1 p2) p1 p2)) (recorre p1 p2)))))))
 
 ;Función principal que llama a las demás funciones, despliega las etiquetas iniciales y finales
 (define (compila file1 file2)
