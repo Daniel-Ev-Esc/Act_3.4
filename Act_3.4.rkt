@@ -69,7 +69,7 @@
   null)
 
 (define (cerrar-par p2)
-  (display "<span style='color:white'>)</span>" p2)
+  (display "<span style='color:white'>)</span><br>" p2)
   (newline p2)
   null)
 
