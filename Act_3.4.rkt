@@ -185,8 +185,6 @@ NOTAS:
   (newline p2)
   (display "<body style='background-color:black;'>" p2)
   (newline p2)
-  ;(display "<span style='color:red'>Texto</span>" p2)
-  (newline p2)
   (recorre p1 p2)
   (display "</body>" p2)
   (newline p2)
