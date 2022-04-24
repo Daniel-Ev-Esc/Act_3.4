@@ -8,6 +8,8 @@ Alexa Geraldine Torres Charles A01568178
 
 El programa se ejecuta con el siguiente comando:
 (compila "barn.cpp" "salida.html")
+(compila "barn2.cpp" "salida2.html")
+(compila "barn3.cpp" "salida3.html")
 
 Resaltador de sintaxis para el lenguaje C++
 
@@ -20,7 +22,7 @@ NOTAS:
 ;COMPLEJIDAD: O(1)
 ;Función de color en html de ciclos
 (define (ciclo atomo p2)
-  (display "<span style='color:purple'>" p2)
+  (display "<span style='color:#D29BFD'>" p2)
   (display atomo p2)
   (display "</span>" p2)
   (newline p2))
@@ -45,7 +47,7 @@ NOTAS:
 ;COMPLEJIDAD: O(1)
 ;Función de código restante en html 
 (define (restante atomo p2)
-  (display "<span style='color:cyan'>" p2)
+  (display "<span style='color:#A3E7D6'>" p2)
   (display atomo p2)
   (display "</span>" p2)
   (newline p2))

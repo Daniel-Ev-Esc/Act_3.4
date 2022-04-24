@@ -1,0 +1,117 @@
+<!DOCTYPE html> 
+<html>
+<body style='background-color:black;'>
+
+<span style='color:#D9DD92'> #include </span> <span style='color:orange'>&ltiostream&gt </span><br>
+<span style='color:#A3E7D6'>using</span>
+<span style='color:#A3E7D6'>namespace</span>
+<span style='color:#A3E7D6'>std</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:green'>// Complejidad: O(n)</span><br>
+<span style='color:pink'>int</span>
+<span style='color:#A3E7D6'>sumaRecursiva</span>
+<span style='color:white'>(</span>
+<span style='color:pink'>int</span>
+<span style='color:#A3E7D6'>n</span>
+<span style='color:white'>)</span>
+<span style='color:white'>{</span><br>
+<span style='color:#D29BFD'>if</span>
+<span style='color:white'>(</span>
+<span style='color:#A3E7D6'>n</span>
+<span style='color:blue'>==</span>
+<span style='color:#A3E7D6'>1</span>
+<span style='color:white'>)</span>
+<span style='color:white'>{</span><br>
+<span style='color:#D9DD92'>return</span>
+<span style='color:#A3E7D6'>1</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:white'>}</span><br>
+<span style='color:#D29BFD'>else</span>
+<span style='color:white'>{</span><br>
+<span style='color:#D9DD92'>return</span>
+<span style='color:#A3E7D6'>n</span>
+<span style='color:blue'>+</span>
+<span style='color:#A3E7D6'>sumaRecursiva</span>
+<span style='color:white'>(</span>
+<span style='color:#A3E7D6'>n</span>
+<span style='color:blue'>-</span>
+<span style='color:#A3E7D6'>1</span>
+<span style='color:white'>)</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:white'>}</span><br>
+<span style='color:white'>}</span><br>
+<span style='color:green'>// Complejidad: O(1)</span><br>
+<span style='color:pink'>int</span>
+<span style='color:#A3E7D6'>sumaDirecta</span>
+<span style='color:white'>(</span>
+<span style='color:pink'>int</span>
+<span style='color:#A3E7D6'>n</span>
+<span style='color:white'>)</span>
+<span style='color:white'>{</span><br>
+<span style='color:pink'>int</span>
+<span style='color:#A3E7D6'>suma</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:#A3E7D6'>suma</span>
+<span style='color:blue'>=</span>
+<span style='color:white'>(</span>
+<span style='color:#A3E7D6'>n</span>
+<span style='color:blue'>*</span>
+<span style='color:white'>(</span>
+<span style='color:#A3E7D6'>n</span>
+<span style='color:blue'>+</span>
+<span style='color:#A3E7D6'>1</span>
+<span style='color:white'>)</span>
+<span style='color:white'>)</span>
+<span style='color:blue'>/</span>
+<span style='color:#A3E7D6'>2</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:#D9DD92'>return</span>
+<span style='color:#A3E7D6'>suma</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:white'>}</span><br>
+<span style='color:green'>// Despliega la suma recursiva y directa</span><br>
+<span style='color:pink'>int</span>
+<span style='color:#A3E7D6'>main</span>
+<span style='color:white'>(</span>
+<span style='color:white'>)</span>
+<span style='color:white'>{</span><br>
+<span style='color:pink'>int</span>
+<span style='color:#A3E7D6'>n</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:pink'>int</span>
+<span style='color:#A3E7D6'>k</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:pink'>int</span>
+<span style='color:#A3E7D6'>contador</span>
+<span style='color:blue'>=</span>
+<span style='color:#A3E7D6'>1</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:#A3E7D6'>cin</span>
+<span style='color:blue'>>></span>
+<span style='color:#A3E7D6'>k</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:#D29BFD'>while</span>
+<span style='color:white'>(</span>
+<span style='color:#A3E7D6'>contador</span>
+<span style='color:blue'><=</span>
+<span style='color:#A3E7D6'>k</span>
+<span style='color:white'>)</span>
+<span style='color:white'>{</span><br>
+<span style='color:#A3E7D6'>contador</span>
+<span style='color:blue'>+=</span>
+<span style='color:#A3E7D6'>1</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:#A3E7D6'>cin</span>
+<span style='color:blue'>>></span>
+<span style='color:#A3E7D6'>n</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:#A3E7D6'>cout</span>
+<span style='color:blue'><<</span>
+<span style='color:#A3E7D6'>sumaRecursiva</span>
+<span style='color:white'>(</span>
+<span style='color:#A3E7D6'>n</span>
+<span style='color:white'>)</span>
+<span style='color:blue'><<</span>
+<span style='color:#A3E7D6'>endl</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:#A3E7D6'>cout</span>
+<span style='color:blue'><<</span>
+<span style='color:#A3E7D6'>sumaDirecta</span>
+<span style='color:white'>(</span>
+<span style='color:#A3E7D6'>n</span>
+<span style='color:white'>)</span>
+<span style='color:blue'><<</span>
+<span style='color:#A3E7D6'>endl</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:white'>}</span><br>
+<span style='color:#D9DD92'>return</span>
+<span style='color:#A3E7D6'>0</span>
+<span style='color:white'>; </span>&nbsp</span><br><span style='color:white'>}</span><br>
+</body>
+</html>
